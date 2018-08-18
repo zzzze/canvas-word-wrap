@@ -18,7 +18,7 @@ function splitWord(text, wordBreak) {
   }
 }
 
-function getTextLine(ctx, text, fontSize, containerWidth, options) {
+function getTextLine(ctx, text, font, containerWidth, options) {
   text = text.trim()
   options = options || {}
   var textOverflow = options.textOverflow
@@ -27,7 +27,8 @@ function getTextLine(ctx, text, fontSize, containerWidth, options) {
   var right = []
   var result = []
   var rest = []
-  ctx.font = '' + fontSize + 'px Arial'
+  console.log(ctx.font)
+  ctx.font = font
 
   var splitArray = function(textArray) {
     var count = Math.ceil(textArray.length / 2)
@@ -78,20 +79,23 @@ function getTextLine(ctx, text, fontSize, containerWidth, options) {
   return {result: result.join('').trim(), rest: rest.join('').trim()}
 }
 
-function wrap(ctx, text, fontSize, containerWidth, options) {
+function wrap(ctx, text, font, containerWidth, options) {
   options = options || {}
   var lineClamp = options.lineClamp || -1
   var textOverflow = options.textOverflow
   var wordBreak = options.wordBreak || 'keep-all'
   var resultArray = []
   var rest = text
+  if (typeof font === 'number' && font.toString() !== 'NaN') {
+    font = '' + font + 'px sans-serif'
+  } 
   var i = 0
   while (true) {
     if (ctx.measureText(rest).width <= containerWidth) {
       resultArray.push(rest)
       break
     } else {
-      var textLineObj = getTextLine(ctx, rest, fontSize, containerWidth, {
+      var textLineObj = getTextLine(ctx, rest, font, containerWidth, {
         textOverflow: i >= lineClamp - 1 && lineClamp > 0 ? textOverflow : '', wordBreak})
       var result = textLineObj.result
       var rest = textLineObj.rest
