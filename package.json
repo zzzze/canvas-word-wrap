@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "test": "karma start karma.config.js",
-    "dev": "webpack-dev-server --port=3000 --mode=development",
     "build": "webpack --mode=production"
   },
   "author": "",
@@ -24,7 +23,6 @@
     "mocha": "^5.2.0",
     "phantomjs": "^2.1.7",
     "webpack": "^4.16.5",
-    "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.5"
+    "webpack-cli": "^3.1.0"
   }
 }
