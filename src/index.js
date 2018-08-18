@@ -27,7 +27,7 @@ function getTextLine(ctx, text, fontSize, containerWidth, options) {
   var right = []
   var result = []
   var rest = []
-  ctx.font = '' + fontSize + 'Arial'
+  ctx.font = '' + fontSize + 'px Arial'
 
   var splitArray = function(textArray) {
     var count = Math.ceil(textArray.length / 2)
@@ -62,20 +62,18 @@ function getTextLine(ctx, text, fontSize, containerWidth, options) {
     if (textOverflow === 'ellipsis' || typeof textOverflow === 'undefined') {
       var postFix =['...']
     } else {
-      var postFix = textOverflow
+      var postFix = [textOverflow]
     }
     result = result.join('').split('')
     result = result.slice(0, result.length - 1).concat(postFix)
     while (true) {
-      var width = ctx.measureText(result).width
+      var width = ctx.measureText(result.join('')).width
       if (width <= containerWidth) {
         break
       } else {
         result = result.slice(0, result.length - 2).concat(postFix)
       }
     }
-  } else if (textOverflow !== '') {
-
   }
   return {result: result.join('').trim(), rest: rest.join('').trim()}
 }
@@ -85,7 +83,6 @@ function wrap(ctx, text, fontSize, containerWidth, options) {
   var lineClamp = options.lineClamp || -1
   var textOverflow = options.textOverflow
   var wordBreak = options.wordBreak || 'keep-all'
-  ctx.font = '' + fontSize + 'px'
   var resultArray = []
   var rest = text
   var i = 0

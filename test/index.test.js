@@ -7,6 +7,7 @@ describe('word wrap', function () {
   var ctx = canvas.getContext('2d')
   var text = 'abc 123 一二三四五六七 abc 123 一二三四五六七 abc 123 一二三四五六七'
 
+  console.log(wrap(ctx, text, 20, 100, {lineClamp: 2}))
   it('should return correct count of lines', function () {
     expect(wrap(ctx, text, 20, 100, {lineClamp: 1}).length).to.equal(1)
     expect(wrap(ctx, text, 20, 100, {lineClamp: 2}).length).to.equal(2)
@@ -29,6 +30,17 @@ describe('word wrap', function () {
       var result = wrap(ctx, text, 20, 100, {lineClamp: 1, textOverflow: 'xyz'})
       return /xyz$/.test(result[0])
     }()).to.be.ok
+  })
+
+  it('should return correct result', function () {
+    expect(wrap(ctx, text, 20, 100, {lineClamp: 1})).to.eql(['abc 123 ...'])
+    expect(wrap(ctx, text, 20, 100, {lineClamp: 2})).to.eql(['abc 123 一', '二三四五...'])
+  })
+
+  it('should handle word break correctly', function () {
+    var text = 'abc 123 def abc 1234 ijk abc 123 xyz'
+    expect(wrap(ctx, text, 20, 100, {lineClamp: 2})).to.eql(['abc 123', 'def abc...'])
+    expect(wrap(ctx, text, 20, 100, {lineClamp: 2, wordBreak: 'break-all'})).to.eql(['abc 123 de', 'f abc 123...'])
   })
 })
 
