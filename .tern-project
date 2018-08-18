@@ -1,0 +1,12 @@
+{
+ 	 "libs": [
+	   "browser"
+	 ],
+	 "plugins": {
+		 "doc_comment": null,
+		 "es_modules": {}
+	 },
+	 "dontLoad": [
+	   "node_modules/**"
+	 ]
+}
