@@ -19,7 +19,6 @@ function splitWord(text, wordBreak) {
 }
 
 function getTextLine(ctx, text, font, containerWidth, options) {
-  console.log(text)
   text = text.trim()
   options = options || {}
   var textOverflow = options.textOverflow
@@ -42,7 +41,6 @@ function getTextLine(ctx, text, font, containerWidth, options) {
 
   while (true) {
     var width = ctx.measureText(joinText(result, left)).width
-    console.log(width, containerWidth)
     if (width <= containerWidth) {
       result =  result.concat(left) 
       splitArray(right)
@@ -53,7 +51,6 @@ function getTextLine(ctx, text, font, containerWidth, options) {
       } else {
         rest = left.concat(right, rest)
       }
-      console.log(result)
       break
     } else {
       rest = right.concat(rest)
