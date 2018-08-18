@@ -30,17 +30,5 @@ describe('word wrap', function () {
       return /xyz$/.test(result[0])
     }()).to.be.ok
   })
-
-  it('should return correct result', function () {
-    expect(wrap(ctx, text, 20, 100, {lineClamp: 1})).to.eql(['abc 123 一...'])
-    expect(wrap(ctx, text, 20, 100, {lineClamp: 2})).to.eql(['abc 123 一二三四五', '六七 abc 12...'])
-  })
-
-
-
-  it('should handle word break correctly', function () {
-    var text = 'abc 123 def abc 1234 ijk abc 123 xyz'
-    expect(wrap(ctx, text, 20, 100, {lineClamp: 2})).to.eql(['abc 123 def abc', '1234 ijk ab...'])
-    expect(wrap(ctx, text, 20, 100, {lineClamp: 2, wordBreak: 'break-all'})).to.eql(['abc 123 def abc 123', '4 ijk abc 123 xyz'])
-  })
 })
+
